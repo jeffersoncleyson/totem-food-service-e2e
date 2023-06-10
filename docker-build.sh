@@ -1,0 +1,1 @@
+docker build -t totem-e2e .

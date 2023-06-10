@@ -1,0 +1,1 @@
+docker run --name totem --network host -v $(pwd)/.env:/app/.env totem-e2e:latest

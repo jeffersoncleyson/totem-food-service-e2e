@@ -1,0 +1,9 @@
+{
+  "cucumberautocomplete.steps": "src/features/step-definitions/**/*-steps.ts",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": [
+    "javascript"
+  ]
+}

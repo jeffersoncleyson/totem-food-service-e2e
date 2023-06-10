@@ -1,0 +1,41 @@
+{
+  "name": "totem-food-service-e2e",
+  "version": "1.0.0",
+  "description": "Automation Test Project",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "cucumber-js ./src/features/specs --tags=\"${TAGS:-@category} and not @ignore\" \"${FAIL}\"",
+    "test": "tsc && cucumber-js ./src/features/specs --tags=\"${TAGS:-@category} and not @ignore\" \"${FAIL}\"",
+    "debug": "tsc && cucumber-js ./src/features/specs --tags=\"${TAGS:-@debug} and not @ignore\" \"${FAIL}\"",
+    "generate-report": "node ./generate-report.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@cucumber/cucumber": "^9.1.2",
+    "chai": "^4.3.0",
+    "cucumber-html-reporter": "^7.1.0",
+    "dotenv": "^10.0.0",
+    "eslint": "^7.24.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "faker": "^5.5.3",
+    "git": "^0.1.5",
+    "moment": "^2.29.1",
+    "node-version": "^2.0.0",
+    "prettier": "^2.2.1",
+    "superagent": "^8.0.9",
+    "superagent-retry-delay": "^2.7.2",
+    "supertest": "^6.3.3"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.5",
+    "@types/node": "^20.2.6",
+    "@types/supertest": "^2.0.12",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.1.3"
+  }
+}

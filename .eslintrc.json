@@ -1,0 +1,30 @@
+{
+  "env": {
+    "commonjs": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": ["airbnb-base", "prettier"],
+  "plugins": ["prettier"],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "rules": {
+    "prettier/prettier": ["error", { "printWidth": 100 }],
+    "no-console": "off"
+  },
+  "overrides": [
+    {
+      "files": ["*-steps.js", "*-service.js", "*-default.js"],
+      "rules": {
+        "func-names": "off",
+        "no-unused-expressions": "off",
+        "prefer-arrow-callback": "off"
+      }
+    }
+  ]
+}

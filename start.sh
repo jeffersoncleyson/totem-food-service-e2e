@@ -1,0 +1,1 @@
+reset && rm -rf dist report && yarn run test
