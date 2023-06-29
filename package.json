@@ -6,8 +6,8 @@
   "scripts": {
     "build": "tsc",
     "start": "cucumber-js ./src/features/specs --tags=\"${TAGS:-@category} and not @ignore\" \"${FAIL}\"",
-    "test": "tsc && cucumber-js ./src/features/specs --tags=\"${TAGS:-@category} and not @ignore\" \"${FAIL}\"",
-    "debug": "tsc && cucumber-js ./src/features/specs --tags=\"${TAGS:-@debug} and not @ignore\" \"${FAIL}\"",
+    "test": "tsc --build --clean && cucumber-js ./src/features/specs --tags=\"${TAGS:-@category} and not @ignore\" \"${FAIL}\"",
+    "debug": "tsc --build --clean && cucumber-js ./src/features/specs --tags=\"${TAGS:-@category} and not @ignore\" \"${FAIL}\"",
     "generate-report": "node ./generate-report.js"
   },
   "license": "MIT",

@@ -1,9 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "es2017",
-      "ES2020.Promise"
-    ],
+    "lib": ["es2017", "ES2020.Promise"],
     "moduleResolution": "node",
     "strict": true,
     "experimentalDecorators": true,
@@ -20,14 +17,9 @@
     "rootDir": ".",
     "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "src/*"
-      ]
+      "~/*": ["src/*"]
     },
-    "typeRoots": [
-      "./node_modules/@types",
-      "./src/@types"
-    ],
+    "typeRoots": ["./node_modules/@types", "./src/@types"],
     "module": "commonjs"
   },
   "include": [
@@ -36,9 +28,5 @@
     "./src/**/*",
     "generate-report.js"
   ],
-  "exclude": [
-    "node_modules/**/*",
-    ".vscode/**/*",
-    "./dist/**/*"
-  ]
+  "exclude": ["node_modules/**/*", ".vscode/**/*", "./dist/**/*"]
 }
