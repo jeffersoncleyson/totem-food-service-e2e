@@ -1,7 +1,8 @@
 @product
 Feature:
   As an Administrative
-  I want to create a product
+  I want to manage products
+  So that I can create, delete, and update them in the system
 
   # @CT-0001
   @PD-0001
