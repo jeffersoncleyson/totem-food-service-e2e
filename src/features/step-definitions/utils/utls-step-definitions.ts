@@ -1,12 +1,14 @@
 import { expect } from "chai";
 
 export default class StepDefinitionUtil {
-
   static expectTobeNotNull = (data: object) => {
     expect(data).to.not.equal(null);
   };
 
-  static expectTobeEqual = (actual: object | string | number, expected: object | string | number) => {
+  static expectTobeEqual = (
+    actual: object | string | number,
+    expected: object | string | number
+  ) => {
     expect(actual).to.equal(expected);
   };
 
@@ -14,7 +16,4 @@ export default class StepDefinitionUtil {
     const test = regex.test(data);
     expect(test).to.equal(true);
   };
-
-
-  
 }
