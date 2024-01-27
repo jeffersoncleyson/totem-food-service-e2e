@@ -1,6 +1,6 @@
 import { Given, When, Then } from "@cucumber/cucumber";
-import CategoryService from "~/services/administrative/category/category-service";
 import StepDefinitionUtil from "~/features/step-definitions/utils/utls-step-definitions";
+import CategoryAdmService from "~/services/administrative/category/category-adm-service";
 
 // ######### BEGIN @ID-0001
 Given("The Administrator wants to create category with name: {string}", async function (name: string) {
@@ -9,14 +9,7 @@ Given("The Administrator wants to create category with name: {string}", async fu
 });
 
 When("The Administrator create a new category", async function () {
-  this.response = await CategoryService.createCategory(this.body, this.headers);
-});
-
-
-
-Then("Should return Status Code {int}", async function (httpStatusCode: number) {
-  StepDefinitionUtil.expectTobeNotNull(this.response);
-  StepDefinitionUtil.expectTobeEqual(this.response?.status, httpStatusCode);
+  this.response = await CategoryAdmService.createCategory(this.body, this.headers);
 });
 
 Then("The response with a new category name: {string}", async function (param: string) {
@@ -33,7 +26,7 @@ Then("The response with a new category name: {string}", async function (param: s
 });
 
 Then("Remove category created and expected Status Code {int}", async function (httpStatusCode: number) {
-  this.response = await CategoryService.removeCategory(this.response?.body?.id, this.headers);
+  this.response = await CategoryAdmService.removeCategory(this.response?.body?.id, this.headers);
   StepDefinitionUtil.expectTobeNotNull(this.response);
   StepDefinitionUtil.expectTobeEqual(this.response?.status, httpStatusCode);
 });
@@ -41,7 +34,7 @@ Then("Remove category created and expected Status Code {int}", async function (h
 
 // ######### BEGIN @ID-0002
 When("The Administrator try create a new category with same name", async function () {
-  this.responseSameCategory = await CategoryService.createCategory(this.body, this.headers);
+  this.responseSameCategory = await CategoryAdmService.createCategory(this.body, this.headers);
 });
 
 Then("Should return Status Code Error {int}", async function (httpStatusCode: number) {
@@ -57,7 +50,7 @@ Given("The Administrator wants to update category with name: {string}", async fu
 });
 
 When("The Administrator update a category", async function () {
-  this.response = await CategoryService.updateCategory(this.response?.body?.id, this.body, this.headers);
+  this.response = await CategoryAdmService.updateCategory(this.response?.body?.id, this.body, this.headers);
 });
 
 Then("The response updating a category name: {string}", async function (param: string) {
@@ -82,5 +75,11 @@ Given("The Administrator wants to delete category with id: {string}", async func
       id: id
     }
   }
+});
+
+Then("Remove category created and expected Status Code {int}", async function (httpStatusCode: number) {
+  this.response = await CategoryAdmService.removeCategory(this.response?.body?.id, this.headers);
+  StepDefinitionUtil.expectTobeNotNull(this.response);
+  StepDefinitionUtil.expectTobeEqual(this.response?.status, httpStatusCode);
 });
 // ######### END @ID-0004

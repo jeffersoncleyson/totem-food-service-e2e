@@ -15,6 +15,8 @@ export default class StepDefinitionUtil {
     expect(test).to.equal(true);
   };
 
-
+  static expectToInclude = (actual: object | string | number, expected: number[]) => {
+    expect(expected).to.include(actual);
+  };
   
 }
