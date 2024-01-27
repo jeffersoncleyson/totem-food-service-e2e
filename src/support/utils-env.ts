@@ -12,6 +12,9 @@ export default class UtilsEnv {
   static PAYMENT_VERSION: string = 'PAYMENT_VERSION'
 
   static ADMINISTRATIVE_PATH_NAME: string = 'ADMINISTRATIVE_PATH_NAME'
+  static TOTEM_PATH_NAME: string = 'TOTEM_PATH_NAME'
+
+  static USER_IDENTIFIER: string = 'USER_IDENTIFIER'
 
   static getEnv = (name: string) => {
     const value = process.env[name];

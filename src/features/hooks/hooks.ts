@@ -6,23 +6,28 @@ Before(async (scenario) => {
 });
 
 After(async (scenario) => {
-  if (scenario.pickle.name.indexOf('product-') == 0) {
+  const isProductScenario = scenario.pickle.name.indexOf('product-') == 0;
+  const isOrderScenario = scenario.pickle.name.indexOf('order-') == 0;
+  if (isProductScenario || isOrderScenario) {
     console.log(`\n=== After Scenario: ${scenario.pickle.name} ===`);
-    await UtilHooks.clearCategoriesE2E();
+    await UtilHooks.clearOrdersE2E();
     await UtilHooks.clearProductsE2E();
+    await UtilHooks.clearCategoriesE2E();
   }
 });
 
 BeforeAll(async () => {
   console.log(`\n=== Before All Scenario ===`);
-  await UtilHooks.clearCategoriesE2E();
+  await UtilHooks.clearOrdersE2E();
   await UtilHooks.clearProductsE2E();
+  await UtilHooks.clearCategoriesE2E();
 });
 
 AfterAll(async () => {
   console.log(`\n=== Before All Scenario ===`);
-  await UtilHooks.clearCategoriesE2E();
+  await UtilHooks.clearOrdersE2E();
   await UtilHooks.clearProductsE2E();
+  await UtilHooks.clearCategoriesE2E();
 });
 
 

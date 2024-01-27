@@ -77,9 +77,4 @@ Given("The Administrator wants to delete category with id: {string}", async func
   }
 });
 
-Then("Remove category created and expected Status Code {int}", async function (httpStatusCode: number) {
-  this.response = await CategoryAdmService.removeCategory(this.response?.body?.id, this.headers);
-  StepDefinitionUtil.expectTobeNotNull(this.response);
-  StepDefinitionUtil.expectTobeEqual(this.response?.status, httpStatusCode);
-});
 // ######### END @ID-0004
