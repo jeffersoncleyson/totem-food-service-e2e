@@ -50,6 +50,7 @@ services:
     image: jeffersoncleyson/totem-food-order-service:latest
     environment:
       - INSPECT_BEANS=false
+      - SPRING_PROFILES_ACTIVE=dev
       ## Database
       - ORDER_MONGODB_URI=mongodb://root:qwe123@mongo-dev:27017/totem-food-order?authSource=admin
       ## Email
