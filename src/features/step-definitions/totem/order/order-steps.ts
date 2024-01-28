@@ -5,6 +5,7 @@ import StepDefinitionUtil from "../../utils/utls-step-definitions";
 import UtilsEnv from "~/support/utils-env";
 import PaymentService from "~/services/totem/payment/payment-service";
 import { BASE_STEP_DEFINITION_OPTIONS, sleep } from "~/support/constants";
+import UtilHooks from "~/support/utils-hooks";
 
 // ######### BEGIN @order-0001
 Given("Product with name: {string}" , BASE_STEP_DEFINITION_OPTIONS , async function (productName: string) {
@@ -17,6 +18,8 @@ Given("Product with name: {string}" , BASE_STEP_DEFINITION_OPTIONS , async funct
     category: this.categoryId
   } as object;
   this.headers = { "Content-Type": "application/json" } as Record<string, string>;
+
+  await UtilHooks.clearProductsE2E();
 
   this.responseProduct = await ProductAdmService.createProduct(this.productPayload, this.headers);
 

@@ -3,12 +3,15 @@ import CategoryAdmService from "~/services/administrative/category/category-adm-
 import StepDefinitionUtil from "../../utils/utls-step-definitions";
 import ProductAdmService from "~/services/administrative/product/product-adm-service";
 import { BASE_STEP_DEFINITION_OPTIONS } from "~/support/constants";
+import UtilHooks from "~/support/utils-hooks";
 
 // ######### BEGIN @product-0001
 Given("Category with name: {string}" , BASE_STEP_DEFINITION_OPTIONS , async function (categoryName: string) {
 
   this.categoryPaylod = { name: `e2e-${categoryName}` } as object;
   this.headers = { "Content-Type": "application/json" } as Record<string, string>;
+
+  await UtilHooks.clearCategoriesE2E();
 
   this.responseCategory = await CategoryAdmService.createCategory(this.categoryPaylod, this.headers);
 
