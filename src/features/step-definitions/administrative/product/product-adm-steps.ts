@@ -8,7 +8,7 @@ import { BASE_STEP_DEFINITION_OPTIONS } from "~/support/constants";
 Given("Category with name: {string}" , BASE_STEP_DEFINITION_OPTIONS , async function (categoryName: string) {
 
   this.categoryPaylod = { name: `e2e-${categoryName}` } as object;
-  this.headers = { "Content-Type": "application/json" } as object;
+  this.headers = { "Content-Type": "application/json" } as Record<string, string>;
 
   this.responseCategory = await CategoryAdmService.createCategory(this.categoryPaylod, this.headers);
 
@@ -37,7 +37,7 @@ Given("The Administrator wants to create product with name: {string}" , BASE_STE
     price: 15,
     category: this.categoryId
   } as object;
-  this.headers = { "Content-Type": "application/json" } as object;
+  this.headers = { "Content-Type": "application/json" } as Record<string, string>;
 });
 
 When("The Administrator create a new product" , BASE_STEP_DEFINITION_OPTIONS , async function () {
@@ -97,7 +97,7 @@ Given("The Administrator wants to update product with name: {string}" , BASE_STE
     price: 50,
     category: this.categoryId
   } as object;
-  this.headers = { "Content-Type": "application/json" } as object;
+  this.headers = { "Content-Type": "application/json" } as Record<string, string>;
 });
 
 When("The Administrator update a product" , BASE_STEP_DEFINITION_OPTIONS , async function () {
@@ -139,7 +139,7 @@ Then("The response updating a product name: {string}" , BASE_STEP_DEFINITION_OPT
 
 // ######### BEGIN @product-0004
 Given("The Administrator wants to delete product with id: {string}" , BASE_STEP_DEFINITION_OPTIONS , async function (id: string) {
-  this.headers = { "Content-Type": "application/json" } as object;
+  this.headers = { "Content-Type": "application/json" } as Record<string, string>;
   this.response = {
     body: {
       id: id

@@ -10,7 +10,7 @@ export default class OrderService {
  * @param {object} requestHeaders
  * @returns 201 OK
  */
-  static createOrder = async (body: object, requestHeaders: object = HeaderUtils.defaultHeader() ) => {
+  static createOrder = async (body: object, requestHeaders: Record<string, string> = HeaderUtils.defaultHeader() ) => {
     const baseURL = UtilsEnv.getEnv(UtilsEnv.ORDER_SERVICE_ADDR)
     const apiVersion = UtilsEnv.getEnv(UtilsEnv.ORDER_VERSION)
     const administrativePathName = UtilsEnv.getEnv(UtilsEnv.TOTEM_PATH_NAME)
@@ -20,7 +20,7 @@ export default class OrderService {
       .send(body);
   };
 
-  static removeOrder = async (id: string, requestHeaders: object = HeaderUtils.defaultHeader() ) => {
+  static removeOrder = async (id: string, requestHeaders: Record<string, string> = HeaderUtils.defaultHeader() ) => {
     const baseURL = UtilsEnv.getEnv(UtilsEnv.ORDER_SERVICE_ADDR)
     const apiVersion = UtilsEnv.getEnv(UtilsEnv.ORDER_VERSION)
     const administrativePathName = UtilsEnv.getEnv(UtilsEnv.ADMINISTRATIVE_PATH_NAME)
@@ -30,7 +30,7 @@ export default class OrderService {
       .send();
   };
 
-  static updateOrder = async (id: string, body: object, requestHeaders: object = HeaderUtils.defaultHeader() ) => {
+  static updateOrder = async (id: string, body: object, requestHeaders: Record<string, string> = HeaderUtils.defaultHeader() ) => {
     const baseURL = UtilsEnv.getEnv(UtilsEnv.ORDER_SERVICE_ADDR)
     const apiVersion = UtilsEnv.getEnv(UtilsEnv.ORDER_VERSION)
     const administrativePathName = UtilsEnv.getEnv(UtilsEnv.TOTEM_PATH_NAME)
@@ -40,7 +40,7 @@ export default class OrderService {
       .send(body);
   };
 
-  static listOrder = async (requestHeaders: object = HeaderUtils.defaultHeader() ) => {
+  static listOrder = async (requestHeaders: Record<string, string> = HeaderUtils.defaultHeader() ) => {
     const baseURL = UtilsEnv.getEnv(UtilsEnv.ORDER_SERVICE_ADDR)
     const apiVersion = UtilsEnv.getEnv(UtilsEnv.ORDER_VERSION)
     const administrativePathName = UtilsEnv.getEnv(UtilsEnv.TOTEM_PATH_NAME)
@@ -50,7 +50,7 @@ export default class OrderService {
       .send();
   };
 
-  static listOrderByStatus = async (queryString: string, requestHeaders: object = HeaderUtils.defaultHeader() ) => {
+  static listOrderByStatus = async (queryString: string, requestHeaders: Record<string, string> = HeaderUtils.defaultHeader() ) => {
     const baseURL = UtilsEnv.getEnv(UtilsEnv.ORDER_SERVICE_ADDR)
     const apiVersion = UtilsEnv.getEnv(UtilsEnv.ORDER_VERSION)
     const administrativePathName = UtilsEnv.getEnv(UtilsEnv.TOTEM_PATH_NAME)
@@ -60,7 +60,7 @@ export default class OrderService {
       .send();
   };
 
-  static updateStatusOrder = async (id: string, status: string, requestHeaders: object = HeaderUtils.defaultHeader() ) => {
+  static updateStatusOrder = async (id: string, status: string, requestHeaders: Record<string, string> = HeaderUtils.defaultHeader() ) => {
     const baseURL = UtilsEnv.getEnv(UtilsEnv.ORDER_SERVICE_ADDR)
     const apiVersion = UtilsEnv.getEnv(UtilsEnv.ORDER_VERSION)
     const administrativePathName = UtilsEnv.getEnv(UtilsEnv.TOTEM_PATH_NAME)

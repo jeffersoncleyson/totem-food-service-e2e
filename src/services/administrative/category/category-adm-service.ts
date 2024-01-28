@@ -10,7 +10,7 @@ export default class CategoryAdmService {
  * @param {object} requestHeaders
  * @returns 201 OK
  */
-  static createCategory = async (body: object, requestHeaders: object = HeaderUtils.defaultHeader() ) => {
+  static createCategory = async (body: object, requestHeaders: Record<string, string> = HeaderUtils.defaultHeader() ) => {
     const baseURL = UtilsEnv.getEnv(UtilsEnv.ORDER_SERVICE_ADDR)
     const apiVersion = UtilsEnv.getEnv(UtilsEnv.ORDER_VERSION)
     const administrativePathName = UtilsEnv.getEnv(UtilsEnv.ADMINISTRATIVE_PATH_NAME)
@@ -20,7 +20,7 @@ export default class CategoryAdmService {
       .send(body);
   };
 
-  static removeCategory = async (id: string, requestHeaders: object = HeaderUtils.defaultHeader() ) => {
+  static removeCategory = async (id: string, requestHeaders: Record<string, string> = HeaderUtils.defaultHeader() ) => {
     const baseURL = UtilsEnv.getEnv(UtilsEnv.ORDER_SERVICE_ADDR)
     const apiVersion = UtilsEnv.getEnv(UtilsEnv.ORDER_VERSION)
     const administrativePathName = UtilsEnv.getEnv(UtilsEnv.ADMINISTRATIVE_PATH_NAME)
@@ -30,7 +30,7 @@ export default class CategoryAdmService {
       .send();
   };
 
-  static updateCategory = async (id: string, body: object, requestHeaders: object = HeaderUtils.defaultHeader() ) => {
+  static updateCategory = async (id: string, body: object, requestHeaders: Record<string, string> = HeaderUtils.defaultHeader() ) => {
     const baseURL = UtilsEnv.getEnv(UtilsEnv.ORDER_SERVICE_ADDR)
     const apiVersion = UtilsEnv.getEnv(UtilsEnv.ORDER_VERSION)
     const administrativePathName = UtilsEnv.getEnv(UtilsEnv.ADMINISTRATIVE_PATH_NAME)
@@ -40,7 +40,7 @@ export default class CategoryAdmService {
       .send(body);
   };
 
-  static listCategory = async (requestHeaders: object = HeaderUtils.defaultHeader() ) => {
+  static listCategory = async (requestHeaders: Record<string, string> = HeaderUtils.defaultHeader() ) => {
     const baseURL = UtilsEnv.getEnv(UtilsEnv.ORDER_SERVICE_ADDR)
     const apiVersion = UtilsEnv.getEnv(UtilsEnv.ORDER_VERSION)
     const administrativePathName = UtilsEnv.getEnv(UtilsEnv.ADMINISTRATIVE_PATH_NAME)

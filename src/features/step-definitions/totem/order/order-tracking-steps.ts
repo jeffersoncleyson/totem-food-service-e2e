@@ -10,7 +10,7 @@ When("The admin wants to track order by status {string}", { timeout: 15000 } , a
   const headers = {
     "Content-Type": "application/json",
     "x-user-identifier": UtilsEnv.getEnv(UtilsEnv.USER_IDENTIFIER)
-  } as object;
+  } as Record<string, string>;
 
   this.responseFilterByStatus = await OrderService.listOrderByStatus(`status=${status}`, headers);
   this.targetStatus = status;
@@ -50,7 +50,7 @@ When("The admin wants to track order by orderId", { timeout: 15000 } , async fun
   const headers = {
     "Content-Type": "application/json",
     "x-user-identifier": UtilsEnv.getEnv(UtilsEnv.USER_IDENTIFIER)
-  } as object;
+  } as Record<string, string>;
 
   this.responseFilterByStatus = await OrderService.listOrderByStatus(`orderId=${this.orderId}`, headers);
 });

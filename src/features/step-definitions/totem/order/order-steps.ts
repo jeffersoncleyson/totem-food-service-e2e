@@ -16,7 +16,7 @@ Given("Product with name: {string}" , BASE_STEP_DEFINITION_OPTIONS , async funct
     price: 15,
     category: this.categoryId
   } as object;
-  this.headers = { "Content-Type": "application/json" } as object;
+  this.headers = { "Content-Type": "application/json" } as Record<string, string>;
 
   this.responseProduct = await ProductAdmService.createProduct(this.productPayload, this.headers);
 
@@ -61,7 +61,7 @@ Given("The Administrator wants to create order" , BASE_STEP_DEFINITION_OPTIONS ,
   this.headers = {
     "Content-Type": "application/json",
     "x-user-identifier": UtilsEnv.getEnv(UtilsEnv.USER_IDENTIFIER)
-  } as object;
+  } as Record<string, string>;
 });
 
 When("The Administrator create a new order" , BASE_STEP_DEFINITION_OPTIONS , async function () {
@@ -138,7 +138,7 @@ Given("The Administrator wants to update order" , BASE_STEP_DEFINITION_OPTIONS ,
   this.headers = {
     "Content-Type": "application/json",
     "x-user-identifier": UtilsEnv.getEnv(UtilsEnv.USER_IDENTIFIER)
-  } as object;
+  } as Record<string, string>;
 });
 
 When("The Administrator update a order" , BASE_STEP_DEFINITION_OPTIONS , async function () {
@@ -159,7 +159,7 @@ Then("The response updating a order" , BASE_STEP_DEFINITION_OPTIONS , async func
 
 // ######### BEGIN @order-0003
 Given("The Administrator wants to delete order with id: {string}" , BASE_STEP_DEFINITION_OPTIONS , async function (id: string) {
-  this.headers = { "Content-Type": "application/json" } as object;
+  this.headers = { "Content-Type": "application/json" } as Record<string, string>;
   this.response = {
     body: {
       id: id
@@ -197,7 +197,7 @@ When("The user update order to status {string}", { timeout: 15000 } , async func
       this.headers = {
         "Content-Type": "application/json",
         "x-user-identifier": UtilsEnv.getEnv(UtilsEnv.USER_IDENTIFIER)
-      } as object;
+      } as Record<string, string>;
 
       this.responsePaymentCreated = await PaymentService.createPayment(this.paymentPayload, this.headers);
 

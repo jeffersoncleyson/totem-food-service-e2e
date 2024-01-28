@@ -48,7 +48,7 @@ export default class UtilHooks {
     const headers = {
       "Content-Type": "application/json",
       "x-user-identifier": UtilsEnv.getEnv(UtilsEnv.USER_IDENTIFIER)
-    } as object;
+    } as Record<string, string>;
 
     const response = await OrderService.listOrderByStatus('status=NEW&status=WAITING_PAYMENT&status=RECEIVED&status=IN_PREPARATION&status=READY&status=FINALIZED&status=CANCELED', headers);
     const orders: [] = response.body;

@@ -3,6 +3,6 @@ export default class HeaderUtils {
   static defaultHeader = () => {
     return {
       "content-type": "application/json"
-    } as object;
+    } as Record<string, string>;
   };
 };
