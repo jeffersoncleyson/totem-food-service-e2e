@@ -2,9 +2,10 @@ import { Given, Then, When } from "@cucumber/cucumber";
 import CategoryAdmService from "~/services/administrative/category/category-adm-service";
 import StepDefinitionUtil from "../../utils/utls-step-definitions";
 import ProductAdmService from "~/services/administrative/product/product-adm-service";
+import { BASE_STEP_DEFINITION_OPTIONS } from "~/support/constants";
 
 // ######### BEGIN @product-0001
-Given("Category with name: {string}", async function (categoryName: string) {
+Given("Category with name: {string}" , BASE_STEP_DEFINITION_OPTIONS , async function (categoryName: string) {
 
   this.categoryPaylod = { name: `e2e-${categoryName}` } as object;
   this.headers = { "Content-Type": "application/json" } as object;
@@ -28,7 +29,7 @@ Given("Category with name: {string}", async function (categoryName: string) {
   this.categoryName = name;
 });
 
-Given("The Administrator wants to create product with name: {string}", async function (name: string) {
+Given("The Administrator wants to create product with name: {string}" , BASE_STEP_DEFINITION_OPTIONS , async function (name: string) {
   this.productPayload = {
     name: `e2e-${name}`,
     description: 'e2e',
@@ -39,11 +40,11 @@ Given("The Administrator wants to create product with name: {string}", async fun
   this.headers = { "Content-Type": "application/json" } as object;
 });
 
-When("The Administrator create a new product", async function () {
+When("The Administrator create a new product" , BASE_STEP_DEFINITION_OPTIONS , async function () {
   this.response = await ProductAdmService.createProduct(this.productPayload, this.headers);
 });
 
-Then("The response with a new product name: {string}", async function (param: string) {
+Then("The response with a new product name: {string}" , BASE_STEP_DEFINITION_OPTIONS , async function (param: string) {
   StepDefinitionUtil.expectTobeNotNull(this.response);
   const { body } = this.response;
   const { id, name, description, image, price, modifiedAt, createAt, category } = body;
@@ -69,7 +70,7 @@ Then("The response with a new product name: {string}", async function (param: st
   StepDefinitionUtil.matchRegex(category?.createAt, /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d.\d+Z/);
 });
 
-Then("Remove product created and expected Status Code {int}", async function (httpStatusCode: number) {
+Then("Remove product created and expected Status Code {int}" , BASE_STEP_DEFINITION_OPTIONS , async function (httpStatusCode: number) {
   this.response = await ProductAdmService.removeProduct(this.response?.body?.id, this.headers);
   StepDefinitionUtil.expectTobeNotNull(this.response);
   StepDefinitionUtil.expectTobeEqual(this.response?.status, httpStatusCode);
@@ -77,18 +78,18 @@ Then("Remove product created and expected Status Code {int}", async function (ht
 // ######### END @product-0001
 
 // ######### BEGIN @product-0002
-When("The Administrator try create a new product with same name", async function () {
+When("The Administrator try create a new product with same name" , BASE_STEP_DEFINITION_OPTIONS , async function () {
   this.responseSameProduct = await ProductAdmService.createProduct(this.productPayload, this.headers);
 });
 
-Then("Same product should return Status Code Error {int}", async function (httpStatusCode: number) {
+Then("Same product should return Status Code Error {int}" , BASE_STEP_DEFINITION_OPTIONS , async function (httpStatusCode: number) {
   StepDefinitionUtil.expectTobeNotNull(this.responseSameProduct);
   StepDefinitionUtil.expectTobeEqual(this.responseSameProduct?.status, httpStatusCode);
 });
 // ######### END @product-0002
 
 // ######### BEGIN @product-0003
-Given("The Administrator wants to update product with name: {string}", async function (name: string) {
+Given("The Administrator wants to update product with name: {string}" , BASE_STEP_DEFINITION_OPTIONS , async function (name: string) {
   this.productPayloadUpdated = {
     name: `e2e-${name}-updated`,
     description: 'e2e-updated',
@@ -99,17 +100,17 @@ Given("The Administrator wants to update product with name: {string}", async fun
   this.headers = { "Content-Type": "application/json" } as object;
 });
 
-When("The Administrator update a product", async function () {
+When("The Administrator update a product" , BASE_STEP_DEFINITION_OPTIONS , async function () {
   this.responseProductUpdated = await ProductAdmService.updateProduct(this.response?.body?.id, this.productPayloadUpdated, this.headers);
 });
 
 
-Then("Update Product should return Status Code {int}", async function (httpStatusCode: number) {
+Then("Update Product should return Status Code {int}" , BASE_STEP_DEFINITION_OPTIONS , async function (httpStatusCode: number) {
   StepDefinitionUtil.expectTobeNotNull(this.responseProductUpdated);
   StepDefinitionUtil.expectTobeEqual(this.responseProductUpdated?.status, httpStatusCode);
 });
 
-Then("The response updating a product name: {string}", async function (param: string) {
+Then("The response updating a product name: {string}" , BASE_STEP_DEFINITION_OPTIONS , async function (param: string) {
   StepDefinitionUtil.expectTobeNotNull(this.responseProductUpdated);
   const { body } = this.responseProductUpdated;
   const { id, name, description, image, price, modifiedAt, createAt, category } = body;
@@ -137,7 +138,7 @@ Then("The response updating a product name: {string}", async function (param: st
 // ######### END @product-0003
 
 // ######### BEGIN @product-0004
-Given("The Administrator wants to delete product with id: {string}", async function (id: string) {
+Given("The Administrator wants to delete product with id: {string}" , BASE_STEP_DEFINITION_OPTIONS , async function (id: string) {
   this.headers = { "Content-Type": "application/json" } as object;
   this.response = {
     body: {

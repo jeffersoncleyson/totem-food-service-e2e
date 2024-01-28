@@ -7,7 +7,7 @@ import PaymentService from "~/services/totem/payment/payment-service";
 import { BASE_STEP_DEFINITION_OPTIONS, sleep } from "~/support/constants";
 
 // ######### BEGIN @order-0001
-Given("Product with name: {string}", async function (productName: string) {
+Given("Product with name: {string}" , BASE_STEP_DEFINITION_OPTIONS , async function (productName: string) {
 
   this.productPayload = {
     name: `e2e-${productName}`,
@@ -49,7 +49,7 @@ Given("Product with name: {string}", async function (productName: string) {
   this.productId = id;
 });
 
-Given("The Administrator wants to create order", async function () {
+Given("The Administrator wants to create order" , BASE_STEP_DEFINITION_OPTIONS , async function () {
   this.orderPayload = {
     products: [
       {
@@ -64,11 +64,11 @@ Given("The Administrator wants to create order", async function () {
   } as object;
 });
 
-When("The Administrator create a new order", async function () {
+When("The Administrator create a new order" , BASE_STEP_DEFINITION_OPTIONS , async function () {
   this.response = await OrderService.createOrder(this.orderPayload, this.headers);
 });
 
-Then("The response with a new order", async function () {
+Then("The response with a new order" , BASE_STEP_DEFINITION_OPTIONS , async function () {
   StepDefinitionUtil.expectTobeNotNull(this.response);
   const { body } = this.response;
   const { id, customer, products, status, price, modifiedAt, createAt  } = body;
@@ -115,7 +115,7 @@ async function validateProducts(products: any[], productPayload: any, categoryNa
 
 }
 
-Then("Remove order created and expected Status Code {int}", async function (httpStatusCode: number) {
+Then("Remove order created and expected Status Code {int}" , BASE_STEP_DEFINITION_OPTIONS , async function (httpStatusCode: number) {
   this.response = await OrderService.removeOrder(this.response?.body?.id, this.headers);
   StepDefinitionUtil.expectTobeNotNull(this.response);
   StepDefinitionUtil.expectTobeEqual(this.response?.status, httpStatusCode);
@@ -124,7 +124,7 @@ Then("Remove order created and expected Status Code {int}", async function (http
 
 
 // ######### BEGIN @order-0002
-Given("The Administrator wants to update order", async function () {
+Given("The Administrator wants to update order" , BASE_STEP_DEFINITION_OPTIONS , async function () {
   this.newQtdOfProduct = 2;
   this.orderPayloadUpdate = {
     products: [
@@ -140,16 +140,16 @@ Given("The Administrator wants to update order", async function () {
   } as object;
 });
 
-When("The Administrator update a order", async function () {
+When("The Administrator update a order" , BASE_STEP_DEFINITION_OPTIONS , async function () {
   this.responseOrderUpdated = await OrderService.updateOrder(this.response?.body?.id, this.orderPayloadUpdate, this.headers);
 });
 
-Then("Update Order should return Status Code {int}", async function (httpStatusCode: number) {
+Then("Update Order should return Status Code {int}" , BASE_STEP_DEFINITION_OPTIONS , async function (httpStatusCode: number) {
   StepDefinitionUtil.expectTobeNotNull(this.responseOrderUpdated);
   StepDefinitionUtil.expectTobeEqual(this.responseOrderUpdated?.status, httpStatusCode);
 });
 
-Then("The response updating a order", async function () {
+Then("The response updating a order" , BASE_STEP_DEFINITION_OPTIONS , async function () {
   const { body } = this.responseOrderUpdated;
   StepDefinitionUtil.expectTobeEqual(body?.products?.length, this.newQtdOfProduct);
   await validateProducts(body?.products, this.productPayload, this.categoryName);
@@ -157,7 +157,7 @@ Then("The response updating a order", async function () {
 // ######### END @order-0002
 
 // ######### BEGIN @order-0003
-Given("The Administrator wants to delete order with id: {string}", async function (id: string) {
+Given("The Administrator wants to delete order with id: {string}" , BASE_STEP_DEFINITION_OPTIONS , async function (id: string) {
   this.headers = { "Content-Type": "application/json" } as object;
   this.response = {
     body: {
@@ -169,7 +169,7 @@ Given("The Administrator wants to delete order with id: {string}", async functio
 
 
 // ######### BEGIN @order-0004
-When("The user update order to status {string}", BASE_STEP_DEFINITION_OPTIONS , async function (status: string) {
+When("The user update order to status {string}", { timeout: 15000 } , async function (status: string) {
   
   const statusArr = status.split(',').map(s => s.trim());
 
