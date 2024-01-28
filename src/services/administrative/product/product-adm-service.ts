@@ -10,7 +10,7 @@ export default class ProductAdmService {
  * @param {object} requestHeaders
  * @returns 201 OK
  */
-  static createProduct = async (body: object, requestHeaders: object = HeaderUtils.defaultHeader() ) => {
+  static createProduct = async (body: object, requestHeaders: Record<string, string> = HeaderUtils.defaultHeader() ) => {
     const baseURL = UtilsEnv.getEnv(UtilsEnv.ORDER_SERVICE_ADDR)
     const apiVersion = UtilsEnv.getEnv(UtilsEnv.ORDER_VERSION)
     const administrativePathName = UtilsEnv.getEnv(UtilsEnv.ADMINISTRATIVE_PATH_NAME)
@@ -20,7 +20,7 @@ export default class ProductAdmService {
       .send(body);
   };
 
-  static removeProduct = async (id: string, requestHeaders: object = HeaderUtils.defaultHeader() ) => {
+  static removeProduct = async (id: string, requestHeaders: Record<string, string> = HeaderUtils.defaultHeader() ) => {
     const baseURL = UtilsEnv.getEnv(UtilsEnv.ORDER_SERVICE_ADDR)
     const apiVersion = UtilsEnv.getEnv(UtilsEnv.ORDER_VERSION)
     const administrativePathName = UtilsEnv.getEnv(UtilsEnv.ADMINISTRATIVE_PATH_NAME)
@@ -30,7 +30,7 @@ export default class ProductAdmService {
       .send();
   };
 
-  static updateProduct = async (id: string, body: object, requestHeaders: object = HeaderUtils.defaultHeader() ) => {
+  static updateProduct = async (id: string, body: object, requestHeaders: Record<string, string> = HeaderUtils.defaultHeader() ) => {
     const baseURL = UtilsEnv.getEnv(UtilsEnv.ORDER_SERVICE_ADDR)
     const apiVersion = UtilsEnv.getEnv(UtilsEnv.ORDER_VERSION)
     const administrativePathName = UtilsEnv.getEnv(UtilsEnv.ADMINISTRATIVE_PATH_NAME)
@@ -40,7 +40,7 @@ export default class ProductAdmService {
       .send(body);
   };
 
-  static listProduct = async (requestHeaders: object = HeaderUtils.defaultHeader() ) => {
+  static listProduct = async (requestHeaders: Record<string, string> = HeaderUtils.defaultHeader() ) => {
     const baseURL = UtilsEnv.getEnv(UtilsEnv.ORDER_SERVICE_ADDR)
     const apiVersion = UtilsEnv.getEnv(UtilsEnv.ORDER_VERSION)
     const administrativePathName = UtilsEnv.getEnv(UtilsEnv.ADMINISTRATIVE_PATH_NAME)

@@ -6,8 +6,8 @@ Before(async (scenario) => {
 });
 
 After(async (scenario) => {
-  const isProductScenario = scenario.pickle.name.indexOf('product-') == 0;
-  const isOrderScenario = scenario.pickle.name.indexOf('order-') == 0;
+  const isProductScenario = scenario.pickle.name.includes('product-');
+  const isOrderScenario = scenario.pickle.name.includes('order-');
   if (isProductScenario || isOrderScenario) {
     console.log(`\n=== After Scenario: ${scenario.pickle.name} ===`);
     await UtilHooks.clearOrdersE2E();

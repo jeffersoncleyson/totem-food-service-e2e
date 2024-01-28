@@ -16,7 +16,7 @@ export default class UtilHooks {
   
     categories.forEach(async (category) => {
       const name = category['name'] as string;
-      if(name.indexOf('e2e') == 0){
+      if(name.includes('e2e')){
         const responseDelete = await CategoryAdmService.removeCategory(category['id']);
         StepDefinitionUtil.expectTobeNotNull(responseDelete);
         StepDefinitionUtil.expectTobeEqual(responseDelete?.status, 204);
@@ -34,7 +34,7 @@ export default class UtilHooks {
   
     products.forEach(async (product) => {
       const name = product['name'] as string;
-      if(name.indexOf('e2e') == 0){
+      if(name.includes('e2e')){
         const responseDelete = await ProductAdmService.removeProduct(product['id']);
         StepDefinitionUtil.expectTobeNotNull(responseDelete);
         StepDefinitionUtil.expectTobeEqual(responseDelete?.status, 204);
@@ -48,7 +48,7 @@ export default class UtilHooks {
     const headers = {
       "Content-Type": "application/json",
       "x-user-identifier": UtilsEnv.getEnv(UtilsEnv.USER_IDENTIFIER)
-    } as object;
+    } as Record<string, string>;
 
     const response = await OrderService.listOrderByStatus('status=NEW&status=WAITING_PAYMENT&status=RECEIVED&status=IN_PREPARATION&status=READY&status=FINALIZED&status=CANCELED', headers);
     const orders: [] = response.body;
@@ -64,7 +64,7 @@ export default class UtilHooks {
       const products = order['products'] as [];
 
       const hasProductE2E = products.some((product: any) => {
-        return product != undefined && product.hasOwnProperty('name') && product['name'].indexOf('e2e') == 0
+        return product != undefined && product.hasOwnProperty('name') && product['name'].includes('e2e')
       });
 
       if(hasProductE2E){

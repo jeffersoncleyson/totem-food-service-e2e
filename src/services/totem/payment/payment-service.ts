@@ -10,7 +10,7 @@ export default class PaymentService {
  * @param {object} requestHeaders
  * @returns 201 OK
  */
-  static createPayment = async (body: object, requestHeaders: object = HeaderUtils.defaultHeader() ) => {
+  static createPayment = async (body: object, requestHeaders: Record<string, string> = HeaderUtils.defaultHeader() ) => {
     const baseURL = UtilsEnv.getEnv(UtilsEnv.PAYMENT_SERVICE_ADDR)
     const apiVersion = UtilsEnv.getEnv(UtilsEnv.PAYMENT_VERSION)
     const administrativePathName = UtilsEnv.getEnv(UtilsEnv.TOTEM_PATH_NAME)
@@ -20,7 +20,7 @@ export default class PaymentService {
       .send(body);
   };
 
-  static getPaymentById = async (id: string, requestHeaders: object = HeaderUtils.defaultHeader() ) => {
+  static getPaymentById = async (id: string, requestHeaders: Record<string, string> = HeaderUtils.defaultHeader() ) => {
     const baseURL = UtilsEnv.getEnv(UtilsEnv.PAYMENT_SERVICE_ADDR)
     const apiVersion = UtilsEnv.getEnv(UtilsEnv.PAYMENT_VERSION)
     const administrativePathName = UtilsEnv.getEnv(UtilsEnv.TOTEM_PATH_NAME)
@@ -30,7 +30,7 @@ export default class PaymentService {
       .send();
   };
 
-  static callCallback = async (body: object, requestHeaders: object = HeaderUtils.defaultHeader() ) => {
+  static callCallback = async (body: object, requestHeaders: Record<string, string> = HeaderUtils.defaultHeader() ) => {
     const baseURL = UtilsEnv.getEnv(UtilsEnv.PAYMENT_SERVICE_ADDR)
     const apiVersion = UtilsEnv.getEnv(UtilsEnv.PAYMENT_VERSION)
     const administrativePathName = UtilsEnv.getEnv(UtilsEnv.TOTEM_PATH_NAME)
@@ -40,7 +40,7 @@ export default class PaymentService {
       .send(body);
   };
 
-  static cancelPayment = async (orderId: string, requestHeaders: object = HeaderUtils.defaultHeader() ) => {
+  static cancelPayment = async (orderId: string, requestHeaders: Record<string, string> = HeaderUtils.defaultHeader() ) => {
     const baseURL = UtilsEnv.getEnv(UtilsEnv.PAYMENT_SERVICE_ADDR)
     const apiVersion = UtilsEnv.getEnv(UtilsEnv.PAYMENT_VERSION)
     const administrativePathName = UtilsEnv.getEnv(UtilsEnv.TOTEM_PATH_NAME)
