@@ -1,0 +1,70 @@
+name: Test
+on:
+  push:
+    branches:
+      - main
+      - develop
+    tags:
+      - v*
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v1
+    - name: Checkout repository
+      run: ls
+
+    - name: Make envfile
+      uses: SpicyPizza/create-envfile@v2.0
+      with:
+        envkey_TIMEOUT: 5000
+        envkey_USER_IDENTIFIER: 12345678901
+        envkey_TOTEM_PATH_NAME: totem
+        envkey_ADMINISTRATIVE_PATH_NAME: administrative
+        envkey_CUSTOMER_VERSION: v1
+        envkey_ORDER_VERSION: v1
+        envkey_PAYMENT_VERSION: v1
+        envkey_PROFILE: LOCAL
+        envkey_CUSTOMER_SERVICE_ADDR: http://localhost:8081
+        envkey_ORDER_SERVICE_ADDR: http://localhost:8080
+        envkey_PAYMENT_SERVICE_ADDR: http://localhost:8082
+        envkey_STORE_ID: ${{ secrets.STORE_ID }}
+        envkey_STORE_TOKEN: ${{ secrets.STORE_TOKEN }}
+        envkey_STORE_USER_ID: ${{ secrets.STORE_USER_ID }}
+        file_name: .env
+        fail_on_empty: false
+        sort_keys: false
+
+    - name: Run docker-compose stack
+      run: docker-compose -f docker-compose.yaml up -d
+
+    - name: Check docker-compose stack
+      run: docker-compose -f docker-compose.yaml ps
+
+    - name: Set Node.js 16.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+
+    - name: Run install
+      uses: borales/actions-yarn@v4
+      with:
+        cmd: install
+
+    - name: Run install
+      uses: borales/actions-yarn@v4
+      with:
+        cmd: test
+
+    - name: Stop docker-compose stack
+      run: docker-compose -f docker-compose.yaml down -v
+
+    - name: Check after stop docker-compose stack
+      run: docker-compose -f docker-compose.yaml ps

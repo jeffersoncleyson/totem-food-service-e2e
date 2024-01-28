@@ -6,7 +6,7 @@ import { BASE_STEP_DEFINITION_OPTIONS } from "~/support/constants";
 // ######### BEGIN @ID-0001
 Given("The Administrator wants to create category with name: {string}", BASE_STEP_DEFINITION_OPTIONS , async function (name: string) {
   this.body = {name: `e2e-${name}`} as object;
-  this.headers = { "Content-Type": "application/json" } as object;
+  this.headers = { "Content-Type": "application/json" } as Record<string, string>;
 });
 
 When("The Administrator create a new category", BASE_STEP_DEFINITION_OPTIONS , async function () {
@@ -47,7 +47,7 @@ Then("Should return Status Code Error {int}", BASE_STEP_DEFINITION_OPTIONS , asy
 // ######### BEGIN @ID-0003
 Given("The Administrator wants to update category with name: {string}", BASE_STEP_DEFINITION_OPTIONS , async function (name: string) {
   this.body = {name: `e2e-${name}-updated`} as object;
-  this.headers = { "Content-Type": "application/json" } as object;
+  this.headers = { "Content-Type": "application/json" } as Record<string, string>;
 });
 
 When("The Administrator update a category", BASE_STEP_DEFINITION_OPTIONS , async function () {
@@ -70,7 +70,7 @@ Then("The response updating a category name: {string}" , BASE_STEP_DEFINITION_OP
 
 // ######### BEGIN @ID-0004
 Given("The Administrator wants to delete category with id: {string}" , BASE_STEP_DEFINITION_OPTIONS , async function (id: string) {
-  this.headers = { "Content-Type": "application/json" } as object;
+  this.headers = { "Content-Type": "application/json" } as Record<string, string>;
   this.response = {
     body: {
       id: id

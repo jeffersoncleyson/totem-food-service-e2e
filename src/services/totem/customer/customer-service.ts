@@ -14,7 +14,7 @@ export default class CustomerService {
  * @param {object} requestHeaders
  * @returns 201 OK
  */
-  static createCustomer = async (body: object, requestHeaders: object = HeaderUtils.defaultHeader() ) => {
+  static createCustomer = async (body: object, requestHeaders: Record<string, string> = HeaderUtils.defaultHeader() ) => {
     return request(`${baseURL}`)
       .post(`/${apiVersion}/${totemPathName}/customer`)
       .set(requestHeaders)
