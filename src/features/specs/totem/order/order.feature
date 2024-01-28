@@ -43,3 +43,20 @@ Feature:
     Examples:
       | testCase | name                     | removeHttpCode |
       | 001      | 6497aeb8edfe661e63ab140a | 204            |
+
+  @order-0004
+  Scenario: order-0001: <testCase>: Creating new order and update order to status: <status>
+    Given Category with name: '<categoryName>'
+    Given Product with name: '<productName>'
+    Given The Administrator wants to create order
+    When The Administrator create a new order
+    Then Should return Status Code <createHttpCode>
+    And The response with a new order
+    When The user update order to status '<status>' 
+    And Remove order created and expected Status Code <removeHttpCode>
+    Examples:
+      | testCase | categoryName | productName | status                                                           | createHttpCode | removeHttpCode |
+      | 001      | Refrigerante | Coca-Cola   | NEW, WAITING_PAYMENT, RECEIVED, IN_PREPARATION, READY, FINALIZED | 201            | 204            |
+      | 002      | Refrigerante | Coca-Cola   | NEW, WAITING_PAYMENT, RECEIVED                                   | 201            | 204            |
+      | 003      | Refrigerante | Coca-Cola   | NEW, WAITING_PAYMENT, CANCELED                                   | 201            | 204            |
+      | 004      | Refrigerante | Coca-Cola   | NEW, CANCELED                                                    | 201            | 204            |

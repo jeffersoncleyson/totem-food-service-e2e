@@ -3,6 +3,7 @@ import CategoryAdmService from "~/services/administrative/category/category-adm-
 import ProductAdmService from "~/services/administrative/product/product-adm-service";
 import OrderService from "~/services/totem/order/order-service";
 import UtilsEnv from "./utils-env";
+import PaymentService from "~/services/totem/payment/payment-service";
 
 export default class UtilHooks {
 
@@ -53,9 +54,15 @@ export default class UtilHooks {
     const orders: [] = response.body;
   
     StepDefinitionUtil.expectToInclude(response?.status, [200, 204]);
+
+    if(orders == undefined || !Array.isArray(orders)) return;
   
     orders.forEach(async (order) => {
+      
+      if(order['products'] == undefined || !Array.isArray(order['products'])) return;
+
       const products = order['products'] as [];
+
       const hasProductE2E = products.some((product: any) => {
         return product != undefined && product.hasOwnProperty('name') && product['name'].indexOf('e2e') == 0
       });
@@ -64,6 +71,10 @@ export default class UtilHooks {
         const responseDelete = await OrderService.removeOrder(order['id']);
         StepDefinitionUtil.expectTobeNotNull(responseDelete);
         StepDefinitionUtil.expectTobeEqual(responseDelete?.status, 204);
+
+        const responseCancelPayment = await PaymentService.cancelPayment(order['id'], headers);
+        StepDefinitionUtil.expectTobeNotNull(responseCancelPayment);
+        StepDefinitionUtil.expectToInclude(responseCancelPayment?.status, [200, 204]);
       }
     })
   

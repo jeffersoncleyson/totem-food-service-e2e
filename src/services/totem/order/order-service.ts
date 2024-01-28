@@ -59,4 +59,14 @@ export default class OrderService {
       .set(requestHeaders)
       .send();
   };
+
+  static updateStatusOrder = async (id: string, status: string, requestHeaders: object = HeaderUtils.defaultHeader() ) => {
+    const baseURL = UtilsEnv.getEnv(UtilsEnv.ORDER_SERVICE_ADDR)
+    const apiVersion = UtilsEnv.getEnv(UtilsEnv.ORDER_VERSION)
+    const administrativePathName = UtilsEnv.getEnv(UtilsEnv.TOTEM_PATH_NAME)
+    return request(`${baseURL}`)
+      .put(`/${apiVersion}/${administrativePathName}/order/${id}/status/${status}`)
+      .set(requestHeaders)
+      .send();
+  };
 };

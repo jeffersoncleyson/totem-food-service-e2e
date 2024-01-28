@@ -18,5 +18,9 @@ export default class StepDefinitionUtil {
   static expectToInclude = (actual: object | string | number, expected: number[]) => {
     expect(expected).to.include(actual);
   };
+
+  static expectNotEmpty = (actual: any[]) => {
+    expect(actual).to.not.empty;
+  };
   
 }

@@ -15,11 +15,14 @@ export default class UtilsEnv {
   static TOTEM_PATH_NAME: string = 'TOTEM_PATH_NAME'
 
   static USER_IDENTIFIER: string = 'USER_IDENTIFIER'
+  static TIMEOUT: string = 'TIMEOUT'
 
-  static getEnv = (name: string) => {
+  static getEnv = (name: string, defaultValue?: string) => {
     const value = process.env[name];
     if(value) return value;
+    else if(defaultValue) return defaultValue;
     throw new Error(`Environment ${name} not found`);
   };
+
 
 }

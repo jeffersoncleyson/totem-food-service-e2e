@@ -3,6 +3,8 @@ import ProductAdmService from "~/services/administrative/product/product-adm-ser
 import OrderService from "~/services/totem/order/order-service";
 import StepDefinitionUtil from "../../utils/utls-step-definitions";
 import UtilsEnv from "~/support/utils-env";
+import PaymentService from "~/services/totem/payment/payment-service";
+import { BASE_STEP_DEFINITION_OPTIONS, sleep } from "~/support/constants";
 
 // ######### BEGIN @order-0001
 Given("Product with name: {string}", async function (productName: string) {
@@ -69,7 +71,17 @@ When("The Administrator create a new order", async function () {
 Then("The response with a new order", async function () {
   StepDefinitionUtil.expectTobeNotNull(this.response);
   const { body } = this.response;
-  await validateProducts(body?.products, this.productPayload, this.categoryName);
+  const { id, customer, products, status, price, modifiedAt, createAt  } = body;
+  StepDefinitionUtil.expectTobeNotNull(id);
+  StepDefinitionUtil.expectTobeNotNull(customer);
+  StepDefinitionUtil.expectTobeNotNull(products);
+  StepDefinitionUtil.expectNotEmpty(products);
+  StepDefinitionUtil.expectTobeNotNull(status);
+  StepDefinitionUtil.expectTobeEqual(status, "NEW");
+  StepDefinitionUtil.expectTobeNotNull(price);
+  StepDefinitionUtil.expectTobeNotNull(modifiedAt);
+  StepDefinitionUtil.expectTobeNotNull(createAt);
+  await validateProducts(products, this.productPayload, this.categoryName);
 });
 
 
@@ -154,3 +166,59 @@ Given("The Administrator wants to delete order with id: {string}", async functio
   }
 });
 // ######### END @order-0003
+
+
+// ######### BEGIN @order-0004
+When("The user update order to status {string}", BASE_STEP_DEFINITION_OPTIONS , async function (status: string) {
+  
+  const statusArr = status.split(',').map(s => s.trim());
+
+  const orderId = this.response?.body?.id;
+
+  for (let index = 0; index < statusArr.length; index++) {
+
+    const targetStatus = statusArr[index];
+    const isRequiredPayment = (statusArr[index+1] != undefined && statusArr[index+1] == 'RECEIVED' && targetStatus == 'WAITING_PAYMENT');
+
+    this.responseStatusUpdated = await OrderService.updateStatusOrder(orderId, targetStatus, this.headers);
+
+    StepDefinitionUtil.expectTobeNotNull(this.responseStatusUpdated);
+    StepDefinitionUtil.expectTobeEqual(this.responseStatusUpdated?.status, 200);
+    StepDefinitionUtil.expectTobeNotNull(this.responseStatusUpdated?.body);
+    StepDefinitionUtil.expectTobeEqual(this.responseStatusUpdated?.body?.status, targetStatus);
+
+    if(isRequiredPayment) {
+
+      this.paymentPayload = {
+        orderId
+      } as object;
+
+      this.headers = {
+        "Content-Type": "application/json",
+        "x-user-identifier": UtilsEnv.getEnv(UtilsEnv.USER_IDENTIFIER)
+      } as object;
+
+      this.responsePaymentCreated = await PaymentService.createPayment(this.paymentPayload, this.headers);
+
+      StepDefinitionUtil.expectTobeNotNull(this.responsePaymentCreated);
+      StepDefinitionUtil.expectTobeEqual(this.responsePaymentCreated?.status, 201);
+
+      const { qrcodeBase64, storeOrderId, status, paymentId } = this.responsePaymentCreated?.body;
+
+      StepDefinitionUtil.expectTobeNotNull(qrcodeBase64);
+      StepDefinitionUtil.expectTobeNotNull(storeOrderId);
+      StepDefinitionUtil.expectTobeNotNull(status);
+      StepDefinitionUtil.expectTobeNotNull(paymentId);
+      StepDefinitionUtil.expectTobeEqual(status, 'PENDING');
+      
+      //Explicit delay - Mercado Pago API
+      await sleep(10000);
+
+      this.responsePaymentCallback = await PaymentService.callCallback({} as object, this.headers);
+      StepDefinitionUtil.expectTobeNotNull(this.responsePaymentCallback);
+      StepDefinitionUtil.expectTobeEqual(this.responsePaymentCallback?.status, 200);
+    }
+    
+  }
+});
+// ######### END @order-0004
