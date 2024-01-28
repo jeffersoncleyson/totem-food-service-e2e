@@ -1,0 +1,47 @@
+name: Test Manual
+
+on:
+  workflow_dispatch:
+    inputs:
+      imageTag:
+        description: 'Temporary Image TAG'
+        required: true
+        default: 'temporary'
+
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      STORE_ID: ${{ secrets.STORE_ID }}
+      STORE_TOKEN: ${{ secrets.STORE_TOKEN }}
+      STORE_USER_ID: ${{ secrets.STORE_USER_ID }}
+
+    steps:
+
+    - uses: actions/checkout@v1
+    - name: Run docker-compose stack
+      run: docker-compose -f docker-compose.yml up -d
+
+    - name: Check docker-compose stack
+      run: docker-compose -f docker-compose.yml ps
+
+    - name: Set Node.js 16.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+
+    - name: Run install
+      uses: borales/actions-yarn@v4
+      with:
+        cmd: install
+
+    - name: Run install
+      uses: borales/actions-yarn@v4
+      with:
+        cmd: test
+
+    - name: Stop docker-compose stack
+      run: docker-compose -f docker-compose.yml down -v
