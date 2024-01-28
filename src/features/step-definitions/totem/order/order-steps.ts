@@ -82,6 +82,7 @@ Then("The response with a new order" , BASE_STEP_DEFINITION_OPTIONS , async func
   StepDefinitionUtil.expectTobeNotNull(modifiedAt);
   StepDefinitionUtil.expectTobeNotNull(createAt);
   await validateProducts(products, this.productPayload, this.categoryName);
+  this.orderId = id;
 });
 
 
