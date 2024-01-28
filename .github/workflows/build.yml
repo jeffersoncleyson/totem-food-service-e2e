@@ -14,10 +14,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    env:
-      STORE_ID: ${{ secrets.STORE_ID }}
-      STORE_TOKEN: ${{ secrets.STORE_TOKEN }}
-      STORE_USER_ID: ${{ secrets.STORE_USER_ID }}
 
     steps:
 
@@ -37,6 +33,9 @@ jobs:
       uses: borales/actions-yarn@v4
       with:
         cmd: install
+
+    - name: Provide .env
+      run: echo ${{ secrets.ENV_FILE }} >> .env
 
     - name: Run install
       uses: borales/actions-yarn@v4
